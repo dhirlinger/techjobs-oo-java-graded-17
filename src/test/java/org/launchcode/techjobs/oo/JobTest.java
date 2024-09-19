@@ -2,6 +2,8 @@ package org.launchcode.techjobs.oo;
 
 import org.junit.Test;
 
+import java.lang.reflect.Array;
+
 import static org.junit.Assert.*;
 
 public class JobTest {
@@ -37,5 +39,30 @@ public class JobTest {
         Job test_job2 = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
 
         assertNotEquals(test_job1, test_job2);
+    }
+
+    @Test
+    public void testToStringStartsAndEndsWithNewLine(){
+        Job test_job1 = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
+
+        assertEquals(String.valueOf(test_job1.toString().charAt(0)), System.lineSeparator());
+        assertEquals(String.valueOf(test_job1.toString().charAt(test_job1.toString().length() -1)), System.lineSeparator());
+    }
+
+    @Test
+    public void testToStringContainsCorrectLabelsAndData(){
+        String newLine = System.lineSeparator();
+        Job test_job1 = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
+
+        assertTrue(test_job1.toString().contains("ID: " + test_job1.getId() + newLine + "Name: " + test_job1.getName() + newLine
+        + "Employer: " + test_job1.getEmployer().getValue() + newLine + "Location: " + test_job1.getLocation().getValue() + newLine
+        + "Position Type: " + test_job1.getPositionType().getValue() + newLine + "Core Competency: " + test_job1.getCoreCompetency().getValue() + newLine));
+    }
+
+    @Test
+    public void testToStringHandlesEmptyField(){
+        Job test_job1 = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType(""), new CoreCompetency("Persistence"));
+
+       assertTrue(test_job1.getPositionType().getValue().isEmpty() && test_job1.toString().contains("Position Type: Data not available"));
     }
 }

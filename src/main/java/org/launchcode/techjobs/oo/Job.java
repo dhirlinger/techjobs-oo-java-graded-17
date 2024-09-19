@@ -1,5 +1,6 @@
 package org.launchcode.techjobs.oo;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Job {
@@ -95,7 +96,30 @@ public class Job {
         return id;
     }
 
+    @Override
+    public String toString() {
+        String name = this.getName();
+        String employer = this.getEmployer().getValue();
+        String location = this.getLocation().getValue();
+        String positionType = this.getPositionType().getValue();
+        String coreCompetency = this.getCoreCompetency().getValue();
+        /*String[] fields = {name, employer, location, positionType, coreCompetency};
 
+        for (int i = 0; i < fields.length; i++){
+        if(fields[i].isEmpty()){
+              fields[i] = "Data not available";
+        }
+        }*/
 
+        if (name.isEmpty()) { name = "Data not available"; }
+        if (employer.isEmpty()) { employer = "Data not available"; }
+        if (location.isEmpty()) { location = "Data not available"; }
+        if (positionType.isEmpty()) { positionType = "Data not available"; }
+        if (coreCompetency.isEmpty()) { coreCompetency = "Data not available"; }
 
+        String newLine = System.lineSeparator();
+        return newLine + "ID: " + this.getId() + newLine + "Name: " + name + newLine + "Employer: " + employer
+        + newLine + "Location: " + location + newLine + "Position Type: " + positionType + newLine
+        + "Core Competency: " + coreCompetency + newLine;
+    }
 }
